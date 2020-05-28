@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Домашняя страница</title>
+    <title>Текущее время</title>
 </head>
 <body>
-    <img src="images/developed_by_lapssh.png" alt="logo">
     <h1>Выберите раздел</h1>
     {% for title, url in pages.items %}
         <a href="{{ url }}">{{ title }}</a>
         <br>
     {% endfor %}
+<h1>msg</h1>
 </body>
 </html>
