@@ -7,33 +7,45 @@ def home_view(request):
 
 
 def about_view(request):
-    template_name = 'app/about.html'
-    return render(request, template_name)
+    template_name = 'app/about2.html'
+    context = {
+        "about": 'active'
+    }
+    return render(request, template_name, context)
 
 
 def contacts_view(request):
-    template_name = 'app/contacts.html'
-    return render(request, template_name)
+    template_name = 'app/contacts2.html'
+    context = {
+        "contacts": 'active'
+    }
+    return render(request, template_name, context)
 
 
 def examples_view(request):
-    template_name = 'app/examples.html'
+    template_name = 'app/examples2.html'
 
     items = [{
         'title': 'Apple II',
         'text': 'Легенда',
-        'img': 'ii.jpg'
+        'img': '/static/ii.jpg'
     }, {
         'title': 'Macintosh',
         'text': 'Свежие новинки октября 1983-го',
-        'img': 'mac.jpg'
+        'img': '/static/mac.jpg'
     }, {
         'title': 'iMac',
         'text': 'Оригинальный и прозрачный',
-        'img': 'imac.jpg'
+        'img': '/static/imac.jpg'
     }]
     context = {
-        'items': items
+        'items': items,
+        "examples": 'active'
     }
     return render(request, template_name,
                   context)
+
+
+def mayka_view(request):
+    template_name = 'app/about2.html'
+    return render(request, template_name)

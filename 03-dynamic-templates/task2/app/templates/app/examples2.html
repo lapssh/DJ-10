@@ -1,0 +1,7 @@
+{% extends "app/base.html" %}
+{% block title %}
+Наши примеры
+{% endblock %}
+{% block content %}
+{% include "app/comp_render.html"  with items=items %}
+{% endblock %}
