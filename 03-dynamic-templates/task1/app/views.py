@@ -6,21 +6,33 @@ def inflation_view(request):
     with open('inflation_russia.csv', 'r', encoding='utf-8') as f:
         data = csv.reader(f, delimiter=';')
         header = next(data)
-        print(f'{header=}')
-        data_ = []
         result = []
-
-        for row in data:  # создаю данные для таблицы
+        years = [str(x) for x in range(1991,2019)]
+        sum_counter = 0 # каунтер для обнаружения последнего столбца
+        for row in data:
+            data_ = []
             for td in row:
-                td_dict = {}  # передам на клиент значения словарём со значением и цветом
-                if not td:  # если значения в клетке нет - передадим прочерк
+                td_dict = {}
+                sum_counter += 1
+                if sum_counter == 14:
+                    td_dict['data'] = td
+                    td_dict['bgcolor'] = 'gray'
+                    sum_counter = 0
+                    data_.append(td_dict)
+                    continue
+                if td in years: # проверяем, что столбец - не год.
+                    td_dict['data'] = td
+                    td_dict['bgcolor'] = 'white'
+                    data_.append(td_dict)
+                    continue
+                if not td:
                     td_dict['data'] = '-'
                     td_dict['bgcolor'] = 'white'
                     data_.append(td_dict)
                     continue
                 elif float(td) >= 5:
                     td_dict['data'] = td
-                    td_dict['bgcolor'] = 'dark_red'
+                    td_dict['bgcolor'] = 'darkred'
                 elif float(td) >= 2:
                     td_dict['data'] = td
                     td_dict['bgcolor'] = 'crimson'
@@ -34,9 +46,8 @@ def inflation_view(request):
                     td_dict['data'] = td
                     td_dict['bgcolor'] = 'green'
 
-                data_.append(td_dict)  # добавляем данные ячейки
-                print(td_dict)
-                print()
+                data_.append(td_dict)
+                continue
             result.append(data_)
 
 
@@ -45,25 +56,3 @@ def inflation_view(request):
         'rows': result
     }
     return render(request, template_name, context)
-    # template_name = 'inflation.html'
-    #
-    # # чтение csv-файла и заполнение контекста
-    # data_ = []
-    #
-    # with open('inflation_russia.csv', 'r', encoding='utf-8') as f:
-    #     data = csv.reader(f, delimiter = ';')
-    #     for i in data:
-    #         data_.append(i)
-    #         print(i)
-    # data2 = data_.pop(0)
-    #
-    # # for i in data:
-    # #     data_.append(i)
-    # #     print(i)
-    # print('точка останова')
-    # context = {
-    #     'header': data2,
-    #     'rows': data_}
-    # # context = data
-    # return render(request, template_name,
-    #               context)
