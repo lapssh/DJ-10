@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from .models import Phone
+from operator import attrgetter
 
 
 def show_catalog(request):
+    template = 'catalog.html'
+    my_phones = Phone.objects.all()
     response = request.GET.get('sort')
     if response == 'name':
         print('Сортировка по имени')
+        my_phones = sorted(my_phones, key=attrgetter('name'))
     elif response == 'min_price':
         print('Сортировка по цене')
-    template = 'catalog.html'
-    my_phones = Phone.objects.all()
+        my_phones = sorted(my_phones, key=attrgetter('price'))
     context = {'my_phones': my_phones}
     return render(request, template, context)
 
