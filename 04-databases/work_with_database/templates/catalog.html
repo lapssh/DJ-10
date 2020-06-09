@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Каталог{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1><a href="/catalog">Каталог</a></h1>
+        </div>
+
+        <div class="sort-block">
+            {# Здесь должен быть раздел с сортировкой #}
+        </div>
+
+        <div class="content">
+<!--            {# Здесь должен отображаться каталог с телефонами #}-->
+
+            {% for i in my_phones %}
+            <p style="color:blue"><b>{{i.name}}</b></p>
+            <p><b>Стоимость: {{i.price}}р.</b></p>
+            <img src="{{i.image}}">
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}
