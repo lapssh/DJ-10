@@ -11,8 +11,11 @@ def show_catalog(request):
         print('Сортировка по имени')
         my_phones = sorted(my_phones, key=attrgetter('name'))
     elif response == 'min_price':
-        print('Сортировка по цене')
+        print('Сортировка по убыванию')
         my_phones = sorted(my_phones, key=attrgetter('price'))
+    elif response == 'max_price':
+        print('Сортировка по возрастанию')
+        my_phones = sorted(my_phones, key=attrgetter('price'), reverse=True)
     context = {'my_phones': my_phones}
     return render(request, template, context)
 
