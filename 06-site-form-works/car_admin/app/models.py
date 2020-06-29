@@ -14,6 +14,7 @@ class Car(models.Model):
     class Meta:
         verbose_name = 'Машина'
         verbose_name_plural = 'Машины'
+        ordering = ('-id',)
 
 
 class Review(models.Model):
@@ -21,6 +22,9 @@ class Review(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
 
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
+
     def __str__(self):
         return str(self.car) + ' ' + self.title
-
