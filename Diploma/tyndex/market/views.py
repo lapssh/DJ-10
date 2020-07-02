@@ -1,14 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
+from .models import Product
 # Create your views here.
 
 def index(request):
     print('=' * 80)
-    template = 'market/test.html'
+    products = Product.objects.all()
+    # template = 'market/test.html'
+    template = loader.get_template('market/index.html')
     context = {
-        'test': 'test',
+        'products': products
     }
-    render(request, template, context)
+    return HttpResponse(template.render(context, request))
+    # render(request, template, context)
     # render(request, template, context)
 
     # return HttpResponse("Здесь будет интернет-магазин")
