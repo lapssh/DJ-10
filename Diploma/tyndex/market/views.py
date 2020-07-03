@@ -17,3 +17,18 @@ def index(request):
     # render(request, template, context)
 
     # return HttpResponse("Здесь будет интернет-магазин")
+
+def cart(request):
+    template = loader.get_template('market/cart.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def smartphones(request):
+    template = loader.get_template('market/smartphones.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def accessories(request):
+    template = loader.get_template('market/accessories.html')
+    context = {}
+    return HttpResponse(template.render(context, request))

@@ -1,26 +1,25 @@
 {% extends "market\basic.html" %}
 
+{% block title %}Аксессуары{% endblock %}
 {% block content %}
+<h1>Аксессуары</h1>
+
 <main role="main">
 
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-4">Добро пожаловать на сайт просто магазина</h1>
-      <p>Лучшие мобилы только у нас:</p>
-    </div>
-  </div>
-
-
-  <div class="container mb-5">
+  <div class="container">
     <!-- Example row of columns -->
+
+    <h1>Смартфоны</h1>
+
     <div class="row">
+
 
       <div class="col-md-4">
         <h2>Nexus 5x</h2>
 
         <a href="./phone.html">
 
-          <img src="/static/nexus5x.webp" width="180">
+          <img src="./static/nexus5x.webp" width="180">
 
         </a>
 
@@ -28,13 +27,14 @@
           <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
         </form>
       </div>
+
 
       <div class="col-md-4">
         <h2>iPhone 7</h2>
 
         <a href="./phone.html">
 
-          <img src="/static/iphone7.webp" width="180">
+          <img src="./static/iphone7.webp" width="180">
 
         </a>
 
@@ -42,13 +42,14 @@
           <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
         </form>
       </div>
+
 
       <div class="col-md-4">
         <h2>Pixel 2</h2>
 
         <a href="./phone.html">
 
-          <img src="/static/pixel2.webp" width="180">
+          <img src="./static/pixel2.webp" width="180">
 
         </a>
 
@@ -58,26 +59,16 @@
       </div>
 
     </div>
-  </div> <!-- /container -->
 
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-4">Не знаете что одеть летом?</h1>
-      <p>Вот что мы можем предложить:</p>
-    </div>
-  </div>
-
-
-  <div class="container mb-5">
-    <!-- Example row of columns -->
     <div class="row">
 
+
       <div class="col-md-4">
-        <h2>Фуфайка</h2>
+        <h2>Samsung S8</h2>
 
         <a href="./phone.html">
 
-          <img src="/static/fufajka.jpg" width="180">
+          <img src="./static/samsungs8.webp" width="180">
 
         </a>
 
@@ -86,8 +77,10 @@
         </form>
       </div>
 
-    </div>
-  </div> <!-- /container -->
 
+    </div> <!-- /container -->
+
+  </div>
 </main>
+
 {% endblock content %}
