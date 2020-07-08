@@ -1,0 +1,31 @@
+{% extends 'basic.html' %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock css %}
+{% block title %}
+    Вход
+{% endblock title %}
+{% block content %}
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <div align="center">
+                    <img class="mb-4" src="{% static 'logo.svg' %}" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Вход</h1>
+        {{ form.username }}
+            <br>
+        {{ form.password }}
+        </div>
+        {% if form.errors %}
+            <div class="alert alert-danger w-100">
+                {% for error in form.non_field_errors %}
+                    <small>{{ error }}</small>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+
+    </form>
+  {% include 'footer.html' %}
+{% endblock content %}

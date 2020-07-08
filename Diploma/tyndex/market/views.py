@@ -8,7 +8,7 @@ def index(request):
     print('=' * 80)
     products = Product.objects.all()
     # template = 'market/test.html'
-    template = loader.get_template('market/index.html')
+    template = loader.get_template('index.html')
     context = {
         'products': products
     }
@@ -17,6 +17,12 @@ def index(request):
     # render(request, template, context)
 
     # return HttpResponse("Здесь будет интернет-магазин")
+
+def my_login(request):
+    template = loader.get_template('market/my_login.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
 
 def cart(request):
     template = loader.get_template('market/cart.html')

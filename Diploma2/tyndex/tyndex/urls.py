@@ -15,18 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth.views import LoginView
-from django.conf import settings
-from django.conf.urls.static import static
 
-from market.views import index
-#     path('accounts/login/', LoginView.as_view(), name='login'),
+from market.views import index_view
+
 urlpatterns = [
-    path('index.html', index),
-    path('', index),
-    path('market/', include('market.urls')),
-    path('admin/', admin.site.urls),
-]
-urlpatterns += [
+    path('', index_view, name='index'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls),
 ]

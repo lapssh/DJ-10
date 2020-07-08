@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/05-databases2/databases_2/orm_migrations" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Diploma" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Diploma/tyndex" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Diploma2/tyndex" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Diploma2/tyndex/market" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
