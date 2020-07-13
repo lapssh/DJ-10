@@ -82,7 +82,7 @@ def product_list_view(request, section_slug=None, category_slug=None):
         'products_paginate': products_paginate,
     }
 
-    return render(request, 'products/product-list.html', context)
+    return render(request, 'product-list.html', context)
 
 
 def product_view(request, section_slug, category_slug, slug):
@@ -91,4 +91,4 @@ def product_view(request, section_slug, category_slug, slug):
 
     context = {'product': product, }
 
-    return render(request, 'products/product.html', context)
+    return render(request, 'product.html', context)

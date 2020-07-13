@@ -1,0 +1,10 @@
+<div class="col-md-4">
+    <h2>{{ product.name }}</h2>
+
+    <a href="{% url 'product' product.category.section.slug product.category.slug product.slug %}">
+        {% if product.image %}
+            <p><img src="{{ product.image.url }}" height="100" alt="{{ product.name }}"></p>
+        {% endif %}
+    </a>
+
+</div>

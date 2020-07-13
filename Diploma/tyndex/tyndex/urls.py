@@ -23,7 +23,7 @@ from market.views import index, view_all_articles, one_article, product_view, pr
 
 #     path('accounts/login/', LoginView.as_view(), name='login'),
 urlpatterns = [
-    path('index.html', index),
+    path('index.html', index, name='index'),
     path('', index),
     path('market/', include('market.urls')),
     path('admin/', admin.site.urls),
