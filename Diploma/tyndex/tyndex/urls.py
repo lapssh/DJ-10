@@ -19,7 +19,8 @@ from django.contrib.auth.views import LoginView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from market.views import index
+from market.views import index, view_all_articles, one_article, product_view, product_list_view
+
 #     path('accounts/login/', LoginView.as_view(), name='login'),
 urlpatterns = [
     path('index.html', index),
@@ -29,4 +30,14 @@ urlpatterns = [
 ]
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
+]
+
+urlpatterns += [
+    path('articles/read/<str:name>', one_article, name='one_article'),
+    path('articles/', view_all_articles, name='view_all_articles'),
+]
+urlpatterns += [
+    path('<str:section_slug>/<str:category_slug>/<str:slug>', product_view, name='product'),
+    path('<str:section_slug>/<str:category_slug>', product_list_view, name='products'),
+    path('', product_list_view, name='products'),
 ]

@@ -1,0 +1,29 @@
+{% extends 'basic.html' %}
+{% block title %}
+    Новости интернет-магазина
+{% endblock title %}
+{% block content %}
+    <main role="main">
+        {% include 'navbar.html' %}
+        <h1 class="display-4"> Новости в мире IT </h1>
+
+
+{% for article in articles %}
+        <div>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-4"> {{ article.title }} </h1>
+                    <p> {{ article.text|safe }} </p>
+                    <p>Опубликовано {{ article.published|date:'d-M-Y'}}</p>
+                </div>
+            </div>
+            <div class="container mb-5">
+
+            </div>
+        </div>
+
+
+{% endfor %}
+    </main>
+    {% include 'footer.html' %}
+{% endblock content %}

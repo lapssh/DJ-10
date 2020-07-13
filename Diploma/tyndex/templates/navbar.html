@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="./index.html">Просто магазин</a>
+  <a class="navbar-brand" href="./index.html">Тындекс Маркет</a>
   <img src="/static/logo.svg" alt="" width="42" height="42">
   <button class="navbar-toggler" type="button" data-toggle="collapse"
           data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
@@ -13,6 +13,33 @@
         <a class="nav-link" href="./index.html">
           Главная</a>
       </li>
+
+            {% for section in menu %}
+                {% if section.categories.all|length_is:"1" %}
+                    {% with section.categories.all|first as category %}
+                        <li class="nav-item {% if section.slug in request.path %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'products' section.slug category.slug %}">
+                                {{ section.name }}</a>
+                        </li>
+                    {% endwith %}
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if section.slug in request.path %}active{% endif %}"
+                           href="" id="dropdown01"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ section.name }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            {% for category in section.categories.all %}
+                                <a class="dropdown-item" href="{% url 'products' section.slug category.slug %}">
+                                    {{ category.name }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
 
 
       <li class="nav-item dropdown">

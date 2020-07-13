@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+    Интернет-магазин
+{% endblock title %}
+{% block content %}
+    <main role="main">
+        <div>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-4"> {{ article.name }} </h1>
+                    <p> {{ article.text|safe }} </p>
+                </div>
+            </div>
+            <div class="container mb-5">
+
+
+            </div>
+        </div>
+    </main>
+    {% include 'footer.html' %}
+{% endblock content %}

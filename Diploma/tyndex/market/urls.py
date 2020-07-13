@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import index, my_login
+from .views import index
 from .views import cart
 from .views import smartphones
 from .views import accessories
