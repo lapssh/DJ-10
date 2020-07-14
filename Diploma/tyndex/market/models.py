@@ -33,7 +33,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name='Товар')
     price = models.DecimalField(max_digits=12, blank=False, verbose_name='Цена', decimal_places=2, default=0)
     product_number = models.IntegerField(blank=False, verbose_name='Артикул товара', unique=True)
-    img = models.ImageField(upload_to='products\%Y%m%d', blank=True, verbose_name='Изображение')
+    img = models.ImageField(upload_to='media/img/', blank=True, verbose_name='Изображение')
     category = models.ForeignKey(Category, related_name='products',
                                  on_delete=models.PROTECT, verbose_name='Категория')
     slug = models.SlugField(max_length=100, unique=True)

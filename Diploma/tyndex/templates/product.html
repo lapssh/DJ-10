@@ -9,8 +9,8 @@
                 <div class="col-md-8">
                     <h2>{{ product.name }}</h2>
 
-                    {% if product.image %}
-                        <img src="{{ product.image.url }}" width="120" alt="{{ product.name }}">
+                    {% if product.img %}
+                        <img src="{{ product.img.url }}" width="120" alt="{{ product.name }}">
                     {% endif %}
                     <p>{{ product.description }}</p>
                     <p>Стоимость: {{ product.price }} руб.</p>

@@ -10,8 +10,12 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="./index.html">
+        <a class="nav-link" href="{% url 'product_list_view' %}">
           Главная</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'index' %}">
+          Новости</a>
       </li>
 
             {% for section in menu %}
@@ -42,26 +46,7 @@
         </ul>
 
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01"
-           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Гаджеты</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
 
-          <a class="dropdown-item" href="./smartphones.html">
-            Сматрфоны</a>
-
-        </div>
-      </li>
-
-
-      <li class="nav-item">
-        <a class="nav-link" href="./accessories.html">
-          Аксесcуары</a>
-      </li>
-
-
-    </ul>
     <a class="btn btn-outline-success my-2 my-sm-0" role="button"
        href="./cart.html">
       Корзина</a>

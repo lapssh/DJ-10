@@ -3,7 +3,11 @@
     Тындекс-Маркет.  Раздел: {{ category_name }}
 {% endblock title %}
 {% block content %}
+        {% include 'navbar.html' %}
+<br>
+
     <main role="main">
+
         <div class="container">
             {% if products_paginate %}
                 <h1>{{ category_name }}</h1>
