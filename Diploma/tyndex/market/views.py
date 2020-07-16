@@ -66,7 +66,7 @@ def accessories(request):
 
 def product_list_view(request, section_slug=None, category_slug=None):
     products = Product.objects.all()
-    category_name = 'Весь ассортимент'
+    category_name = 'Все товары:'
 
     if section_slug and category_slug:
         category = get_object_or_404(Category, slug=category_slug)
