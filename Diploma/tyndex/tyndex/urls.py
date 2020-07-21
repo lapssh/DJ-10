@@ -19,7 +19,8 @@ from django.contrib.auth.views import LoginView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from market.views import index, view_all_articles, one_article, product_view, product_list_view
+from market.views import index, view_all_articles, one_article, product_view, product_list_view, show_cart_view, \
+    add_to_cart
 
 #     path('accounts/login/', LoginView.as_view(), name='login'),
 urlpatterns = [
@@ -42,3 +43,8 @@ urlpatterns += [
     path('<str:section_slug>/<str:category_slug>', product_list_view, name='products'),
     path('', product_list_view, name='products'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    path('cart/', show_cart_view, name='show_cart'),
+    path('add_to_cart/', add_to_cart, name='add_to_cart'),
+]

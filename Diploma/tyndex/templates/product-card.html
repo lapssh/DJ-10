@@ -9,6 +9,9 @@
             <p><img src="media/{{ product.img }}" height="100" alt="{{ product.name }}"></p>
         {% endif %}
     </a>
-
+    <form action="{% url 'add_to_cart' %}?product_id={{ product.id }}&next={{ request.path }}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-secondary btn-sm btn-outline-primary " value="Купить">
+    </form>
 
 </div>

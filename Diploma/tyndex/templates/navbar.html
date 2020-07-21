@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="./index.html">Тындекс Маркет</a>
+  <a class="navbar-brand" href="{% url 'index' %}">Тындекс Маркет</a>
   <img src="/static/logo.svg" alt="" width="42" height="42">
   <button class="navbar-toggler" type="button" data-toggle="collapse"
           data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
@@ -48,16 +48,16 @@
 
 
     <a class="btn btn-outline-success my-2 my-sm-0" role="button"
-       href="./cart.html">
+       href="../cart/">
       Корзина</a>
 
    {% if user.is_authenticated %}
     <a class="btn btn-outline-success my-2 my-sm-0" role="button"
-       href="accounts/logout/">
+       href="../accounts/logout/">
       Выход</a>
    {% else %}
     <a class="btn btn-outline-success my-2 my-sm-0" role="button"
-       href="accounts/login/">
+       href="../accounts/login/">
       Войти</a>
    {% endif %}
   </ul>

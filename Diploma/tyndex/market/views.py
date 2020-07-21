@@ -92,3 +92,14 @@ def product_view(request, section_slug, category_slug, slug):
     context = {'product': product, }
 
     return render(request, 'product.html', context)
+
+def show_cart_view(request):
+    template = loader.get_template('cart.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def add_to_cart(request):
+    print(request.get('product_id'))
+    print(request.get('product_id'))
+    context = {}
+    return render(request, 'cart.html', context)
