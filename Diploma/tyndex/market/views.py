@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
 from .models import Product, Article, Category
@@ -94,12 +94,38 @@ def product_view(request, section_slug, category_slug, slug):
     return render(request, 'product.html', context)
 
 def show_cart_view(request):
-    template = loader.get_template('cart.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+    next_page = request.GET.get('next')
+    context = {
+        'next': next_page,
+    }
+    cart = request.session.get('cart', None)
+    if cart:
+        products = {}
+        product_list = Product.objects.filter(
+            pk__in=cart.keys()).values(
+            'id', 'name', 'img', 'price', )
+        for product in product_list:
+            products[str(product['id'])] = product
+        for key in cart.keys():
+            cart[key]['product'] = products[key]
+        context['cart'] = cart
+    return render(request, 'cart.html', context)
+
 
 def add_to_cart(request):
-    print(request.get('product_id'))
-    print(request.get('product_id'))
-    context = {}
-    return render(request, 'cart.html', context)
+    next_page = request.GET.get('next')
+    if request.method == 'POST':
+        product_pk = request.GET.get('product_id')
+        if 'cart' not in request.session:
+            request.session['cart'] = {}
+        cart = request.session.get('cart')
+        if product_pk in cart:
+            cart[product_pk]['quantity'] += 1
+        else:
+            cart[product_pk] = {
+                'quantity': 1,
+            }
+    #print(request.get('product_id'))
+    request.session.modified = True
+    return redirect(next_page)
+    # return render(request, 'cart.html', context)
