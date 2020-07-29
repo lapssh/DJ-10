@@ -106,9 +106,12 @@ def show_cart_view(request):
             'id', 'name', 'img', 'price', )
         for product in product_list:
             products[str(product['id'])] = product
+            print(products, '\n')
         for key in cart.keys():
             cart[key]['product'] = products[key]
+            print(cart[key]['product'], '\n')
         context['cart'] = cart
+        print(context['cart'])
     return render(request, 'cart.html', context)
 
 
