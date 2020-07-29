@@ -1,12 +1,10 @@
 {% extends "basic.html" %}
 
 {% block title %}Корзина{% endblock %}
+
 {% block content %}
-{% for i in cart.values %}
-<h3>{{i.product.name}}:  {{i.quantity}}  шт.</h3>
-<h3></h3>
-{% endfor %}
-<h3>{{ cart }}</h3>
+{% include 'navbar.html' %}
+<h5>{{ cart }}</h5>
 <div class="container mt-3">
 
   <div class="row">
@@ -36,4 +34,5 @@
   </div>
 
 </div>
+{% include 'footer.html' %}
 {% endblock content %}
