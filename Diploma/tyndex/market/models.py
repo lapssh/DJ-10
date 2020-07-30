@@ -37,6 +37,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products',
                                  on_delete=models.PROTECT, verbose_name='Категория')
     slug = models.SlugField(max_length=100, unique=True)
+    description = models.CharField(max_length=512, verbose_name='Описание')
 
     class Meta:
         verbose_name = 'Товар'
