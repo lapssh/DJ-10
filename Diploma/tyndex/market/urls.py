@@ -4,6 +4,7 @@ from .views import index, product_list_view
 from .views import cart
 from .views import smartphones
 from .views import accessories
+from .views import order_view
 
 urlpatterns = [
     path('', index),
@@ -12,4 +13,5 @@ urlpatterns = [
     path('cart.html', cart, name='cart'),
     path('smartphones.html', smartphones, name='smartphones'),
     path('accessories.html', accessories, name='accessories'),
+    path('order/', order_view, name='order'),
 ]

@@ -1,8 +1,10 @@
+from pprint import pprint
+
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
-from .models import Product, Article, Category
+from .models import Product, Article, Category, Order, ProductsInOrder
 
 # Create your views here.
 PRODUCTS_PER_PAGE = 3
@@ -111,7 +113,9 @@ def show_cart_view(request):
             cart[key]['product'] = products[key]
             print(cart[key]['product'], '\n')
         context['cart'] = cart
-        print(context['cart'])
+        print(80*'=')
+        #pprint(context['cart'])
+        pprint(request.session['cart'])
     return render(request, 'cart.html', context)
 
 
@@ -132,3 +136,6 @@ def add_to_cart(request):
     request.session.modified = True
     return redirect(next_page)
     # return render(request, 'cart.html', context)
+
+def order_view(request):
+    pass
