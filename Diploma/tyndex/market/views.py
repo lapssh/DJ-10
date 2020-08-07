@@ -4,10 +4,13 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
-from .models import Product, Article, Category, Order, ProductsInOrder
+from django.contrib import messages
+from .models import Product, Article, Category, Order, ProductsInOrder, Customer
+
 
 # Create your views here.
 PRODUCTS_PER_PAGE = 3
+
 
 def index(request):
     print('=' * 80)
@@ -40,6 +43,7 @@ def view_all_articles(request):
 
     return render(request, 'index.html', context)
 
+
 def one_article(request, name=None):
     articles = Article.objects.filter(name=name)
     context = {'articles': articles}
@@ -51,20 +55,24 @@ def one_article(request, name=None):
 
     return render(request, 'articles.html', context)
 
+
 def cart(request):
     template = loader.get_template('market/cart.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
 
 def smartphones(request):
     template = loader.get_template('market/smartphones.html')
     context = {}
     return HttpResponse(template.render(context, request))
 
+
 def accessories(request):
     template = loader.get_template('market/accessories.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
 
 def product_list_view(request, section_slug=None, category_slug=None):
     products = Product.objects.all()
@@ -95,6 +103,7 @@ def product_view(request, section_slug, category_slug, slug):
 
     return render(request, 'product.html', context)
 
+
 def show_cart_view(request):
     next_page = request.GET.get('next')
     context = {
@@ -113,8 +122,8 @@ def show_cart_view(request):
             cart[key]['product'] = products[key]
             print(cart[key]['product'], '\n')
         context['cart'] = cart
-        print(80*'=')
-        #pprint(context['cart'])
+        print(80 * '=')
+        # pprint(context['cart'])
         pprint(request.session['cart'])
     return render(request, 'cart.html', context)
 
@@ -132,10 +141,34 @@ def add_to_cart(request):
             cart[product_pk] = {
                 'quantity': 1,
             }
-    #print(request.get('product_id'))
+    # print(request.get('product_id'))
     request.session.modified = True
     return redirect(next_page)
     # return render(request, 'cart.html', context)
 
+
 def order_view(request):
-    pass
+    if request.method == 'POST':
+        customer_pk = request.user.customer.pk
+        customer = Customer.objects.get(pk=customer_pk)
+
+        cart = request.session['cart']
+
+        if len(cart) > 0:
+            order = Order.objects.create(customer=customer)
+
+            for key, value in cart.items():
+                product = Product.objects.get(pk=key)
+                quantity = value['quantity']
+                ProductsInOrder.objects.create(order=order,
+                                               product=product,
+                                               quantity=quantity,
+                                               )
+            request.session['cart'] = {}
+            request.session.modified = True
+
+            messages.success(request,
+                             f"Спасибо, {customer}! Ваш заказ оформлен."
+                             f"\nОжидайте доставку, наш курьер скоро с вами свяжется.")
+
+    return redirect('cart')
