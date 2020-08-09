@@ -29,6 +29,7 @@
 
       <form class="card p-2" action="{% url 'order' %}" method="post">
           {% csrf_token %}
+
         <button type="submit" class="btn btn-secondary">Заказать</button>
       </form>
     </div>

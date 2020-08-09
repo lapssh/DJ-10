@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
 from django.contrib import messages
-from .models import Product, Article, Category, Order, ProductsInOrder, Customer
+from .models import Product, Article, Category, Order, ProductsInOrder, Customer, User
 
 
 # Create your views here.
@@ -149,13 +149,21 @@ def add_to_cart(request):
 
 def order_view(request):
     if request.method == 'POST':
-        customer_pk = request.user.customer.pk
-        customer = Customer.objects.get(pk=customer_pk)
+        #customer_pk = request.user.customer.pk
+        #print(request.META)
+        cart = request.session['cart']
+        print('items: ', request.session.__dict__)
+        customer_id_ = request.session['_auth_user_id']
+        print('ID пользователя: ',request.session['_auth_user_id'])
+        customer_pk = request.session['_auth_user_id']
+        print(cart)
+        customer_ = Customer.objects.get(user_id=customer_id_)
+        print(customer_)
 
         cart = request.session['cart']
 
         if len(cart) > 0:
-            order = Order.objects.create(customer=customer)
+            order = Order.objects.create(customer=customer_)
 
             for key, value in cart.items():
                 product = Product.objects.get(pk=key)
@@ -168,7 +176,7 @@ def order_view(request):
             request.session.modified = True
 
             messages.success(request,
-                             f"Спасибо, {customer}! Ваш заказ оформлен."
+                             f"Спасибо, {customer_}! Ваш заказ оформлен."
                              f"\nОжидайте доставку, наш курьер скоро с вами свяжется.")
 
-    return redirect('cart')
+    return redirect('show_cart')
