@@ -4,7 +4,7 @@ from .models import Article
 from .models import Section
 from .models import Category
 from .models import Product
-from .models import Customer
+from .models import Customer, User
 from .models import Order
 from .models import ProductsInOrder
 
@@ -22,17 +22,18 @@ class ProductsInOrderInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     ordering = ('created', 'id')
-    list_display = ('customer', 'quantity', 'created', )
+    list_display = ('customer', 'quantity', 'created',)
     inlines = (ProductsInOrderInline,)
 
     def quantity(self, obj):
         return ProductsInOrder.objects.filter(order=obj).count()
+
     quantity.short_description = 'Количество единиц'
+
 
 admin.site.register(Article)
 admin.site.register(Section)
 admin.site.register(Category)
 admin.site.register(Product)
 admin.site.register(Customer)
-admin.site.register(Order)
-admin.site.register(ProductsInOrder)
+admin.site.register(Order, OrderAdmin)

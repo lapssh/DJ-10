@@ -70,7 +70,7 @@ class Customer(models.Model):
         verbose_name_plural = 'Покупатели'
 
     def __str__(self):
-        return self.user.email
+        return self.user.username
 
 
 class Order(models.Model):
