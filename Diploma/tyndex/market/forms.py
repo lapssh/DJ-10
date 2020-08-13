@@ -8,8 +8,6 @@ from .models import Article
 from ckeditor.widgets import CKEditorWidget
 
 
-
-
 class CustomerLoginForm(forms.Form):
     email = forms.CharField(widget=forms.EmailInput(
         attrs={'class': 'form-control',
@@ -32,7 +30,7 @@ class CustomerLoginForm(forms.Form):
             else:
                 username = customer.username
 
-                user = authenticate(username=username, password=password,)
+                user = authenticate(username=username, password=password, )
 
                 if not user:
                     raise forms.ValidationError('Неверный адрес email или пароль')
@@ -47,7 +45,6 @@ class CustomerRegisterForm(UserCreationForm):
             attrs={'class': 'form-control form-control-lg', 'placeholder': 'Введите ваш email'}
         )
     )
-
 
     password1 = forms.CharField(
         label='Пароль:',
