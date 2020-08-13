@@ -6,6 +6,8 @@ from .views import smartphones
 from .views import accessories
 from .views import order_view
 
+handler404 = 'market.views.handler404'
+
 urlpatterns = [
     path('', index),
     path('index.html', index),

@@ -4,14 +4,15 @@
 
 {% block content %}
 {% include 'navbar.html' %}
-<h5>{{ cart }}</h5>
+<!--<h5>{{ cart }}</h5>-->
+<!--<h4>Число товаров в корзине: {{ products_count }}.</h4>-->
 <div class="container mt-3">
 
   <div class="row">
     <div class="col-lg-6 col-md-9 col-sm-12 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-muted">Ваша корзина</span>
-        <span class="badge badge-secondary badge-pill">3</span>
+        <span class="badge badge-secondary badge-pill">{{ products_count }}</span>
       </h4>
       <ul class="list-group mb-3">
       {% for i in cart.values %}
