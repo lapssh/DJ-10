@@ -14,6 +14,7 @@
                 <div class="container">
                     <h1 class="display-4"> {{ article.title }} </h1>
                     <p> {{ article.text|safe }} </p>
+                    <p>{{ article.products }}</p>
                     <p>Опубликовано {{ article.published|date:'d-M-Y'}}</p>
                 </div>
             </div>

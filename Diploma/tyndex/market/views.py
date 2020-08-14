@@ -5,33 +5,25 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
 from django.contrib import messages
-from .models import Product, Article, Category, Order, ProductsInOrder, Customer, User
+from .models import Product, Article, Category, Order, ProductsInOrder, Customer
 
-
-# Create your views here.
-PRODUCTS_PER_PAGE = 3
+PRODUCTS_PER_PAGE = 6
 
 
 def index(request):
-    print('=' * 80)
-    articles = Article.objects.order_by('-published')
+    try:
+        print('=' * 80)
+        articles = Article.objects.order_by('-published')
 
-    context = {
-        'articles': articles,
-    }
+        context = {
+            'articles': articles,
 
-    return render(request, 'articles.html', context)
-    # products = Product.objects.all()
-    # # template = 'market/test.html'
-    # template = loader.get_template('index.html')
-    # context = {
-    #     'products': products
-    # }
-    # return HttpResponse(template.render(context, request))
-    # render(request, template, context)
-    # render(request, template, context)
+        }
+        print(context)
 
-    # return HttpResponse("Здесь будет интернет-магазин")
+        return render(request, 'articles.html', context)
+    except:
+        raise Http404("Page does not exist")
 
 
 def view_all_articles(request):
@@ -40,6 +32,7 @@ def view_all_articles(request):
     context = {
         'articles': articles,
     }
+    print(context)
 
     return render(request, 'index.html', context)
 
@@ -47,6 +40,7 @@ def view_all_articles(request):
 def one_article(request, name=None):
     articles = Article.objects.filter(name=name)
     context = {'articles': articles}
+    print(context)
 
     article = Article.objects.filter(name=name).first()
 
@@ -75,24 +69,32 @@ def accessories(request):
 
 
 def product_list_view(request, section_slug=None, category_slug=None):
-    products = Product.objects.all()
-    category_name = 'Все товары:'
+    try:
 
-    if section_slug and category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = list(category.products.all())
-        category_name = category.name.capitalize()
+        products = Product.objects.all()
+        category_name = 'Все товары:'
 
-    page = request.GET.get('page')
-    paginator = Paginator(products, PRODUCTS_PER_PAGE)
-    products_paginate = paginator.get_page(page)
+        if section_slug and category_slug:
+            category = get_object_or_404(Category, slug=category_slug)
+            products = list(category.products.all())
+            category_name = category.name.capitalize()
 
-    context = {
-        'category_name': category_name,
-        'products_paginate': products_paginate,
-    }
+        page = request.GET.get('page')
+        paginator = Paginator(products, PRODUCTS_PER_PAGE)
+        products_paginate = paginator.get_page(page)
 
-    return render(request, 'product-list.html', context)
+        context = {
+            'category_name': category_name,
+            'products_paginate': products_paginate,
+        }
+
+        return render(request, 'product-list.html', context)
+    except:
+        raise Http404("Page does not exist")
+
+
+def handler404(request, *args, **argv):
+    return render(request, '404.html', status=404)
 
 
 def product_view(request, section_slug, category_slug, slug):
@@ -122,7 +124,9 @@ def show_cart_view(request):
             cart[key]['product'] = products[key]
             print(cart[key]['product'], '\n')
         context['cart'] = cart
+        context['products_count'] = len(cart)
         print(80 * '=')
+        print(len(cart))
         # pprint(context['cart'])
         pprint(request.session['cart'])
     return render(request, 'cart.html', context)
@@ -149,12 +153,12 @@ def add_to_cart(request):
 
 def order_view(request):
     if request.method == 'POST':
-        #customer_pk = request.user.customer.pk
-        #print(request.META)
+        # customer_pk = request.user.customer.pk
+        # print(request.META)
         cart = request.session['cart']
         print('items: ', request.session.__dict__)
         customer_id_ = request.session['_auth_user_id']
-        print('ID пользователя: ',request.session['_auth_user_id'])
+        print('ID пользователя: ', request.session['_auth_user_id'])
         customer_pk = request.session['_auth_user_id']
         print(cart)
         customer_ = Customer.objects.get(user_id=customer_id_)
